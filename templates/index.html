@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wine quality prediction</title>
+    <link rel="stylesheet" href="static\style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Red Wine Quality Prediction</h1><br>
+        <form id="prediction-form" onsubmit="makePrediction(event)">
+            <div class="form-row">
+                <div class="coolinput">
+                    <label for="feature_1" class="number">Fixed Acidity:</label>
+                    <input type="number" placeholder="Write here..." class="input" id="feature_1" name="feature_1" step="any" required>
+                </div>
+
+                <div class="coolinput">
+                    <label for="feature_2" class="number">Volatile Acidity:</label>
+                    <input type="number" placeholder="Write here..." class="input" id="feature_2" name="feature_2" step="any" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="coolinput">
+                    <label for="feature_3" class="number">Citric Acid:</label>
+                    <input type="number" placeholder="Write here..." class="input" id="feature_3" name="feature_3" step="any" required>
+                </div>
+
+                <div class="coolinput">
+                    <label for="feature_4" class="number">Residual Sugar:</label>
+                    <input type="number" placeholder="Write here..." class="input" id="feature_4" name="feature_4" step="any" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="coolinput">
+                    <label for="feature_5" class="number">Chlorides:</label>
+                    <input type="number" placeholder="Write here..." class="input" id="feature_5" name="feature_5" step="any" required>
+                </div>
+
+                <div class="coolinput">
+                    <label for="feature_6" class="number">Free Sulfur Dioxide:</label>
+                    <input type="number" placeholder="Write here..." class="input" id="feature_6" name="feature_6" step="any" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="coolinput">
+                    <label for="feature_7" class="number">Total Sulfur Dioxide:</label>
+                    <input type="number" placeholder="Write here..." class="input" id="feature_7" name="feature_7" step="any" required>
+                </div>
+
+                <div class="coolinput">
+                    <label for="feature_8" class="number">Density:</label>
+                    <input type="number" placeholder="Write here..." class="input" id="feature_8" name="feature_8" step="any" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="coolinput">
+                    <label for="feature_9" class="number">pH:</label>
+                    <input type="number" placeholder="Write here..." class="input" id="feature_9" name="feature_9" step="any" required>
+                </div>
+
+                <div class="coolinput">
+                    <label for="feature_10" class="number">Sulphates:</label>
+                    <input type="number" placeholder="Write here..." class="input" id="feature_10" name="feature_10" step="any" required>
+                </div>
+            </div>
+
+            
+            <div class="coolinput">
+                <label for="feature_11" class="number">Alcohol:</label>
+                <input type="number" placeholder="Write here..." class="input" id="feature_11" name="feature_11" step="any" required>
+            </div>
+
+            <button type="submit">Predict</button>
+        </form>
+        <br>
+        <div id="result"></div> 
+        <script src="/static/script.js"></script>
+    </div>
+</body>
+</html>
