@@ -10,14 +10,11 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust this for production
+    allow_origins=["*"],      
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-
 
 # Define the path to your templates directory
 templates = Jinja2Templates(directory="templates")
@@ -49,20 +46,6 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-@app.post("/predict")
-async def predict(input_data: WineInput):
-    logging.info(f"Received input data: {input_data}")
-    data = np.array([[input_data.feature_1, input_data.feature_2, input_data.feature_3, input_data.feature_4, input_data.feature_5, input_data.feature_6, input_data.feature_7, input_data.feature_8, input_data.feature_9, input_data.feature_10, input_data.feature_11]])  
-    prediction = model.predict(data)
-
-    if prediction[0] == 0:
-        message = 'The wine quality is not good'
-    else:
-        message = 'The wine quality is good'
-    
-    return {"prediction": message}
-
-
 @app.get("/")
 async def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
@@ -79,6 +62,7 @@ async def predict(input_data : WineInput):
         message = 'The wine quality is good'
     
     return {"prediction": message}
+
 
 if __name__ == "__main__":
     import uvicorn
