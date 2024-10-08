@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Create .ssh directory
+        run: mkdir -p /home/runner/.ssh
+
       - name: Decode and save PEM key
         run: |
           echo "$EC2_PEM_KEY" | base64 -d > /home/runner/.ssh/ec2-key.pem
