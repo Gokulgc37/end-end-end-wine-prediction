@@ -18,13 +18,18 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Decode and save PEM key
+        run: |
+          echo "$EC2_PEM_KEY" | base64 -d > /home/runner/.ssh/ec2-key.pem
+          chmod 600 /home/runner/.ssh/ec2-key.pem
+
       - name: Install dependencies
         run: pip install -r requirements.txt
 
       - name: Copy files to server
         run: |
-          scp -i /path/to/key.pem -r * ubuntu@<EC2_IP>:/path/to/your/project
+          scp -i /home/runner/.ssh/ec2-key.pem -r * ubuntu@<EC2_IP>:/home/ubuntu/my_fastapi_app
 
       - name: Restart app
         run: |
-          ssh -i /path/to/key.pem ubuntu@<EC2_IP> "sudo systemctl restart fastapi_app"
+          ssh -i /home/runner/.ssh/ec2-key.pem ubuntu@<EC2_IP> "sudo systemctl restart fastapi_app"
