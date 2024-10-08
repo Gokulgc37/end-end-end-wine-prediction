@@ -19,7 +19,7 @@ jobs:
           python-version: '3.x'
 
       - name: Create .ssh directory
-        run: mkdir -p /home/runner/.ssh
+        run: mkdir -p ~/.ssh
 
       - name: Decode and save PEM key
         run: |
