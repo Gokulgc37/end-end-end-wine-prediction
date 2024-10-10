@@ -29,7 +29,7 @@ async function makePrediction(event) {
     };
 
     // Make the POST request to FastAPI
-    const response = await fetch("http://13.57.214.7:8080/predict", { //if we run in on cloud use http://our-ec2-public-ip:8080/predict
+    const response = await fetch("http://54.176.255.173:8080/predict", { //if we run in on cloud use http://our-ec2-public-ip:8080/predict
         method: "POST",
         headers: {
             "Content-Type": "application/json"
