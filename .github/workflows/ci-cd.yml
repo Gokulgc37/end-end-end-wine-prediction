@@ -45,6 +45,6 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H 54.176.255.173 >> ~/.ssh/known_hosts
           
-          ssh -i "ec2-key.pem" ubuntu@54.176.255.173 "cd /home/ubuntu/ end-end-end-wine-prediction && git pull origin main &&
+          ssh -i "ec2-key.pem" ubuntu@54.176.255.173 "cd /home/ubuntu/end-end-end-wine-prediction && git pull origin main &&
             if [ ! -d 'env' ]; then python3 -m venv env; fi && source env/bin/activate && pip install -r requirements.txt &&
             nohup uvicorn main:app --host 0.0.0.0 --port 8080 & exit 0"
