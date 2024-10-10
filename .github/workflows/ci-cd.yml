@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11.5
+
+      - name: Install dependencies
+        run: |
+          python -m venv env
+          source env/bin/activate
+          pip install -r requirements.txt
+
+      - name: Run Tests (if applicable)
+        run: |
+          source env/bin/activate
+          # Add your test commands here
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to AWS EC2
+        run: |
+          ssh -i "your-ec2-key.pem" ubuntu@<your-ec2-ip> "cd /path/to/your/project && git pull origin main && source env/bin/activate && uvicorn main:app --host 0.0.0.0 --port 8000"
