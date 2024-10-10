@@ -35,28 +35,19 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Deploy to AWS EC2
+      run: |
+        echo "${{ secrets.EC2_SSH_KEY }}" > ec2-key.pem
+        chmod 600 ec2-key.pem
         
-      - name: Deploy to AWS EC2
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > ec2-key.pem
-          chmod 600 ec2-key.pem
-          
-          mkdir -p ~/.ssh
-          
-          ssh-keyscan -H 3.101.45.77 >> ~/.ssh/known_hosts
-
-          ssh -i "ec2-key.pem" ubuntu@3.101.45.77 << 'EOF'
-            cd /home/ubuntu/end-end-end-wine-prediction
-            # Create the virtual environment if it doesn't exist
-            if [ ! -d "env" ]; then
-              python3 -m venv env
-            fi
-            source env/bin/activate
-            git pull origin main
-            pip install -r requirements.txt 
-            uvicorn main:app --host 0.0.0.0 --port 8080
-          EOF
+        # Create the .ssh directory if it doesn't exist
+        mkdir -p ~/.ssh
+        
+        # Add the EC2 host to known_hosts to avoid host key verification issues
+        ssh-keyscan -H 3.101.45.77 >> ~/.ssh/known_hosts
+        
+        # Connect to the EC2 instance and run commands
+        ssh -i "ec2-key.pem" ubuntu@3.101.45.77 "cd /home/ubuntu/end-end-end-wine-prediction && git pull origin main && source env/bin/activate && nohup uvicorn main:app --host 0.0.0.0 --port 8080 & exit 0"
 
