@@ -45,7 +45,7 @@ jobs:
         mkdir -p ~/.ssh
         
 
-        ssh-keyscan -H 3.101.45.77 >> ~/.ssh/known_hosts
+        ssh-keyscan -H 54.241.255.215 >> ~/.ssh/known_hosts
 
-        ssh -i "ec2-key.pem" ubuntu@3.101.45.77 "cd /home/ubuntu/end-end-end-wine-prediction && git pull origin main && source env/bin/activate && nohup uvicorn main:app --host 0.0.0.0 --port 8080 & exit 0"
+        ssh -i "ec2-key.pem" ubuntu@54.241.255.215 "cd /home/ubuntu/end-end-end-wine-prediction && git pull origin main && source env/bin/activate && nohup uvicorn main:app --host 0.0.0.0 --port 8080 & exit 0"
 
