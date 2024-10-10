@@ -41,4 +41,6 @@ jobs:
 
       - name: Deploy to AWS EC2
         run: |
-          ssh -i "your-ec2-key.pem" ubuntu@<your-ec2-ip> "cd /path/to/your/project && git pull origin main && source env/bin/activate && uvicorn main:app --host 0.0.0.0 --port 8000"
+          echo "${{ secrets.EC2_SSH_KEY }}" > ec2-key.pem
+          chmod 600 ec2-key.pem
+          ssh -i "ec2-key.pem" ubuntu@3.101.45.77 "cd /home/ubuntu/end-end-end-wine-prediction && git pull origin main && source env/bin/activate && uvicorn main:app --host 0.0.0.0 --port 8080"
