@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.11.5
+          python-version: 3.12.3
 
       - name: Install dependencies
         run: |
@@ -43,19 +43,20 @@ jobs:
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > ec2-key.pem
           chmod 600 ec2-key.pem
-
+          
           mkdir -p ~/.ssh
-
+          
           ssh-keyscan -H 3.101.45.77 >> ~/.ssh/known_hosts
-
+          
+          # Connect to the EC2 instance and run commands
           ssh -i "ec2-key.pem" ubuntu@3.101.45.77 << 'EOF'
             cd /home/ubuntu/end-end-end-wine-prediction
-            
             if [ ! -d "env" ]; then
-              python -m venv env
+              python3 -m venv env
             fi
             source env/bin/activate
             git pull origin main
+            pip install -r requirements.txt  
             uvicorn main:app --host 0.0.0.0 --port 8080
           EOF
 
